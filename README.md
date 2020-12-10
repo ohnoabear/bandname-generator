@@ -2,7 +2,7 @@
 
 Discord bot for generating random band names
 
-Band name generator by pizzaboy314 [https://github.com/pizzaboy314/IndieBandNameGenerator] (https://github.com/pizzaboy314/IndieBandNameGenerator)
+Band name generator by pizzaboy314 [https://github.com/pizzaboy314/IndieBandNameGenerator](https://github.com/pizzaboy314/IndieBandNameGenerator)
 Based on the following tutorial: [https://www.sitepoint.com/discord-bot-node-js/](https://www.sitepoint.com/discord-bot-node-js/)
 
 ## Requirements
