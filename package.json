@@ -1,13 +1,13 @@
 {
-  "name": "discord-bot",
+  "name": "bandname-generator",
   "version": "1.0.0",
-  "description": "Discord bot for SitePoint",
+  "description": "Discord bot to generate random band names",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Michiel Mulders",
-  "license": "ISC",
+  "author": "David Briggs",
+  "license": "MIT",
   "dependencies": {
     "discord.js": "^11.5.1",
     "dotenv": "^8.2.0"

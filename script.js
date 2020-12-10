@@ -1,71 +1,66 @@
-require('dotenv').config();
-const Discord = require('discord.js');
-const bot = new Discord.Client();
-const TOKEN = process.env.DISCORD_TOKEN;
-//const Promise = require('promise');
+/*import { readFileSync } from 'fs';
+
+const fetch = require('node-fetch');
+
+if (!globalThis.fetch) {
+    globalThis.fetch = fetch;
+}*/
 const fs = require('fs');
 const util = require('util');
-const readFile = util.promisify(fs.readFile);
-const dictFile = fileSetup();
-bot.login(TOKEN);
+//const readFile = util.promisify(fs.readFile);
 
 
-bot.on('ready', () => {
-  console.info(`Logged in as ${bot.user.tag}!`);
-});
-
-bot.on('message', msg => {
-  if (msg.content.startsWith('!bandname')) {
-    if (msg.mentions.users.size) {
-      const taggedUser = msg.mentions.users.first();
-      msg.channel.send(`You wanted to kick: ${taggedUser.username}`);
-    } else {
-      msg.channel.send(generateBandnames(dictFile, 1));
+function generate(flag) {
+    if(flag == 0){
+        var sectionTag = document.getElementById('outputContainer');
+        sectionTag.style.display = 'none';
     }
-  }
-});
 
-function fileSetup() {
-  var rawDictContents = new Map();
-  var rawDictFilepaths = [6];
-  rawDictFilepaths[0] = '/Users/David/JSProjects/bandname-bot/words/adjectives.txt';
-  rawDictFilepaths[1] = '/Users/David/JSProjects/bandname-bot/words/firstfemalenames.txt';
-  rawDictFilepaths[2] = '/Users/David/JSProjects/bandname-bot/words/firstmalenames.txt';
-  rawDictFilepaths[3] = '/Users/David/JSProjects/bandname-bot/words/lastnames.txt';
-  rawDictFilepaths[4] = '/Users/David/JSProjects/bandname-bot/words/nouns.txt';
-  rawDictFilepaths[5] = '/Users/David/JSProjects/bandname-bot/words/verbs.txt';
-  rawDictFilepaths[6] = '/Users/David/JSProjects/bandname-bot/words/interjections.txt';
+    var rawDictContents = new Map();
+    var rawDictFilepaths = [6];
+    rawDictFilepaths[0] = '/Users/David/JSProjects/bandname-bot/words/adjectives.txt';
+    rawDictFilepaths[1] = '/Users/David/JSProjects/bandname-bot/words/firstfemalenames.txt';
+    rawDictFilepaths[2] = '/Users/David/JSProjects/bandname-bot/words/firstmalenames.txt';
+    rawDictFilepaths[3] = '/Users/David/JSProjects/bandname-bot/words/lastnames.txt';
+    rawDictFilepaths[4] = '/Users/David/JSProjects/bandname-bot/words/nouns.txt';
+    rawDictFilepaths[5] = '/Users/David/JSProjects/bandname-bot/words/verbs.txt';
+    rawDictFilepaths[6] = '/Users/David/JSProjects/bandname-bot/words/interjections.txt';
 
-  for(var i=0; i<rawDictFilepaths.length; i++){
-      readFile(rawDictFilepaths[i], 'utf8', (err, data) =>{
-          var key = 'null';
-          if(data.startsWith('**adjectives')){
-              key = 'adj';
-          } else if(data.startsWith('**firstfemalenames')){
-              key = 'fname';
-          } else if(data.startsWith('**firstmalenames')){
-              key = 'mname';
-          } else if(data.startsWith('**lastnames')){
-              key = 'sname';
-          } else if(data.startsWith('**nouns')){
-              key = 'noun';
-          } else if(data.startsWith('**verbs')){
-              key = 'verb';
-          } else if(data.startsWith('**interjections')){
-              key = 'intj';
-          }
-          rawDictContents.set(key,data);
-      });
-  }
-  return rawDictContents;
+    var filesLoaded = 0;
+    for(var i=0; i<rawDictFilepaths.length; i++){
+        fs.readFile(rawDictFilepaths[i], 'utf8', (err, data) =>{
+            var key = 'null';
+            if(data.startsWith('**adjectives')){
+                key = 'adj';
+            } else if(data.startsWith('**firstfemalenames')){
+                key = 'fname';
+            } else if(data.startsWith('**firstmalenames')){
+                key = 'mname';
+            } else if(data.startsWith('**lastnames')){
+                key = 'sname';
+            } else if(data.startsWith('**nouns')){
+                key = 'noun';
+            } else if(data.startsWith('**verbs')){
+                key = 'verb';
+            } else if(data.startsWith('**interjections')){
+                key = 'intj';
+            }
+            rawDictContents.set(key,data);
+            filesLoaded++;
+            if(filesLoaded == rawDictFilepaths.length){
+                return generateBandnames(rawDictContents,flag);
+            }
+        });
+    }
+
 }
-
 function generateBandnames(rawDictContents,flag){
     var numberOfNames = 0;
     if(flag > 0){
         numberOfNames = flag;
+    } else {
+        numberOfNames = document.getElementById('numberOfNames').value
     }
-
     var arrAdj = rawDictContents.get('adj').split('\n');
     var arrFName = rawDictContents.get('fname').split('\n');
     var arrMName = rawDictContents.get('mname').split('\n');
@@ -138,9 +133,20 @@ function generateBandnames(rawDictContents,flag){
             bandname += 'The ' + adj1 + ', ' + adj1 + ' ' + (randBool() ? noun1 + ' ' : '') + noun2 + 's';
         }
         bandname = bandname.replace(/[\n\r]/g, ' ').trim();
+        //console.log(bandname);
         output = output + bandname;
     }
 
+    /*if(flag > 0){
+        var apiTag = document.getElementById('api');
+        apiTag.innerHTML = output;
+    } else {
+        var codeTag = document.getElementById('textOutput');
+        codeTag.innerHTML = output;
+        var sectionTag = document.getElementById('outputContainer');
+        sectionTag.style.display = 'block';
+    }*/
+    console.log(output);
     return output;
 }
 
@@ -156,3 +162,6 @@ function randBool(){
     var randInt = Math.floor(Math.random() * Math.floor(2));
     return randInt == 1;
 }
+
+word = generate(1);
+console.log(word);
