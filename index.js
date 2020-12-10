@@ -28,13 +28,13 @@ bot.on('message', msg => {
 function fileSetup() {
   var rawDictContents = new Map();
   var rawDictFilepaths = [6];
-  rawDictFilepaths[0] = '/Users/David/JSProjects/bandname-bot/words/adjectives.txt';
-  rawDictFilepaths[1] = '/Users/David/JSProjects/bandname-bot/words/firstfemalenames.txt';
-  rawDictFilepaths[2] = '/Users/David/JSProjects/bandname-bot/words/firstmalenames.txt';
-  rawDictFilepaths[3] = '/Users/David/JSProjects/bandname-bot/words/lastnames.txt';
-  rawDictFilepaths[4] = '/Users/David/JSProjects/bandname-bot/words/nouns.txt';
-  rawDictFilepaths[5] = '/Users/David/JSProjects/bandname-bot/words/verbs.txt';
-  rawDictFilepaths[6] = '/Users/David/JSProjects/bandname-bot/words/interjections.txt';
+  rawDictFilepaths[0] = '/words/adjectives.txt';
+  rawDictFilepaths[1] = '/words/firstfemalenames.txt';
+  rawDictFilepaths[2] = '/words/firstmalenames.txt';
+  rawDictFilepaths[3] = '/words/lastnames.txt';
+  rawDictFilepaths[4] = '/words/nouns.txt';
+  rawDictFilepaths[5] = '/words/verbs.txt';
+  rawDictFilepaths[6] = '/words/interjections.txt';
 
   for(var i=0; i<rawDictFilepaths.length; i++){
       readFile(rawDictFilepaths[i], 'utf8', (err, data) =>{
